@@ -1,0 +1,65 @@
+meta:
+  name: SATOM OÜ
+  links:
+    home: https://satom.eu/
+logo:
+  images:
+    icon-color: logos/icon/satom-icon-color.png
+    wide-color: logos/wide/satom-wide-color.png
+    tall-color: logos/wide/satom-tall-color.png
+  small: icon-color
+  medium: wide-color
+  large: tall-color
+color:
+  palette:
+    awanokuni: "#E3EBF3"
+    samue: "#7093BF"
+    noren: "#375A9D"
+    hakujiiro: "#E9EAEB"
+    ginhakushoku: "#D3D3D2"
+    gosuiro: "#323172"
+    sitagoshirae: "#E7D3CF"
+    gochiso: "#CB6874"
+    hashi: "#a47d59"
+    urahairo: "#97CEA1"
+  foreground: gosuiro
+  background: awanokuni
+  primary: samue
+  secondary: ginhakushoku
+  success: urahairo
+  info: sitagoshirae
+  warning: hashi
+  danger: gochiso
+  light: awanokuni
+  dark: noren
+typography:
+  google-fonts:
+    - family: "Noto Sans"
+      wght: [400, 600]
+    - family: "IBM Plex Mono"
+      wght: [400]
+    - family: "Alata"
+      wght: [400]
+  base:
+    family: "Noto Sans"
+    line-height: 1.6
+  headings:
+    family: "Alata"
+    weight: 600
+  link:
+    color: primary
+    decoration: underline
+  monospace:
+    family: "IBM Plex Mono"
+    size: 1em
+defaults:
+  bootstrap:
+    defaults:
+      link-decoration: underline
+      navbar-fg: "#fff"
+  quarto:
+    format:
+      html:
+      revealjs:
+      typst:
+  shiny:
