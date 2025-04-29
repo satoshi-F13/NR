@@ -65,6 +65,35 @@ get_nr_calculation <- function(input, app_data, input_values) {
   })
 }
 
+# Get environment type based on NR value
+get_environment <- function(calculate_nr, app_data) {
+  reactive({
+    req(calculate_nr())
+    
+    # Extract numeric value from NR string (e.g., "NR 45" -> 45)
+    nr_value <- as.numeric(gsub("NR ", "", calculate_nr()))
+    
+    # Check if NR is below 25 or above 70
+    if (is.na(nr_value) || nr_value < 25 || nr_value > 70) {
+      return("NA")
+    }
+    
+    # Find matching environment from the environment_nr data
+    env_match <- app_data$environment_nr %>%
+      filter(
+        # Extract numeric ranges from nr_range (e.g., "NR 25-30" -> c(25, 30))
+        nr_value >= as.numeric(gsub("NR ([0-9]+)-.*", "\\1", nr_range)),
+        nr_value <= as.numeric(gsub("NR [0-9]+-([0-9]+)", "\\1", nr_range))
+      )
+    
+    if (nrow(env_match) > 0) {
+      return(env_match$environment[1])
+    } else {
+      return("NA")
+    }
+  })
+}
+
 # Prepare results data
 get_results <- function(input, input_values, calculate_nr) {
   reactive({
@@ -90,6 +119,7 @@ create_results_table <- function(results_data) {
   # Get frequency names for formatting
   freq_cols <- get_input_frequencies()
   
+  # Create a more responsive table that doesn't require horizontal scrolling
   datatable(
     results_data,
     options = list(
@@ -102,12 +132,12 @@ create_results_table <- function(results_data) {
       columnDefs = list(
         list(className = 'dt-center', targets = "_all")
       ),
-      scrollX = TRUE,
+      scrollX = FALSE,  # Disable horizontal scrolling
       autoWidth = TRUE
     ),
     rownames = FALSE,
     selection = "none",
-    class = "cell-border stripe hover",
+    class = "cell-border stripe hover display compact", # Add compact class for narrower cells
     caption = htmltools::tags$caption(
       style = 'caption-side: top; text-align: center; font-size: 16px; font-weight: bold; color: #323172;',
       'Noise Values by Frequency (dB)'

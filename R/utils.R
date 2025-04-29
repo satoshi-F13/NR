@@ -8,7 +8,8 @@ load_app_data <- function() {
   list(
     nr_chart = read_csv("data/nr_table.csv", show_col_types = FALSE),
     df_nr_full = readRDS("data/df_nr_full.rds"),
-    df_nr = read_csv("data/df_nr.csv", show_col_types = FALSE)
+    df_nr = read_csv("data/df_nr.csv", show_col_types = FALSE),
+    environment_nr = read_csv("data/environment_nr.csv", show_col_types = FALSE)
   )
 }
 
